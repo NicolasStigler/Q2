@@ -8,6 +8,13 @@ module RegisterFile (
 );
   reg [31:0] regfile[15:0];
 
+  integer i;
+  initial begin
+      for (i = 0; i < 16; i = i + 1) begin
+          regfile[i] = 32'b0;
+      end
+  end
+
   // Lectura de registros
   assign RD1 = regfile[RA1];
   assign RD2 = regfile[RA2];

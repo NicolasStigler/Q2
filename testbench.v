@@ -27,35 +27,33 @@ module testbench;
     clk = 0;
     RegWrite = 1;
 
+    WA = 4'b0000; WD = 32'd10; #10; // RA1 = 10
+    WA = 4'b0001; WD = 32'd5;  #10; // RA2 = 5
+    WA = 4'b0010; WD = 32'd2;  #10; // RA3 = 2
+
     // Prueba de ADD (RA1 + RA2)
-    RA1 = 4'b0000;
-    RA2 = 4'b0001;
-    RA3 = 4'b0010;
-    WA = 4'b0011;
-    WD = 32'd10;
-    ALUControl = 3'b000;
-    MLA_Select = 0;
+    RA1 = 4'b0000; RA2 = 4'b0001; RA3 = 4'b0010;
+    ALUControl = 3'b000; MLA_Select = 0;
     #10;
 
     // Prueba de MLA (RA1 * RA2 + RA3)
-    ALUControl = 3'b100;
-    MLA_Select = 1;
+    ALUControl = 3'b100; MLA_Select = 1;
     #10;
 
     // Prueba de SDIV (RA1 / RA2)
-    ALUControl = 3'b101;
-    MLA_Select = 0;
+    ALUControl = 3'b101; MLA_Select = 0;
     #10;
 
     // Prueba de UDIV (RA1 / RA2)
-    ALUControl = 3'b110;
-    MLA_Select = 0;
+    ALUControl = 3'b110; MLA_Select = 0;
     #10;
 
+    // Finalizar simulación
     $finish;
   end
 
   initial begin
-    $monitor("Time: %0d | ALUControl: %b | ALUResult: %d", $time, ALUControl, ALUResult);
+    $dumpfile("dump.vcd");
+    $dumpvars(0, testbench);
   end
 endmodule
